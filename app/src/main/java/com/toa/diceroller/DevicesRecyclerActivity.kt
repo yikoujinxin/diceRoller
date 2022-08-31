@@ -1,7 +1,9 @@
 package com.toa.diceroller
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -34,11 +36,22 @@ class DevicesRecyclerActivity : AppCompatActivity() {
         val addImage = R.drawable.dice_3
         deviceList.add(Device(addCount,addName, addImage))
         adapter.insertDevice(addCount, deviceList)
+
+//        var editor = getSharedPreferences("data", Context.MODE_PRIVATE).edit()
+//        editor.putInt("deviceId", 1)
+//        editor.putString("deviceName", "Device1")
+//        editor.putInt("deviceImageId", R.drawable.dice_1)
+//        editor.apply()
     }
 
     private fun initDevices(){
-        deviceList.add(Device(1,"Device1", R.drawable.dice_1))
-        deviceList.add(Device(2,"Device2", R.drawable.dice_2))
+        Log.d("initDevices","initDevices")
+
+        val prefs = getSharedPreferences("data", Context.MODE_PRIVATE)
+        val deviceId = prefs.getInt("deviceId", 2)
+        val deviceName = prefs.getString("deviceName", "Device2")
+        val deviceImageId = prefs.getInt("deviceImageId", 2131165286)
+        deviceList.add(Device(deviceId,deviceName!!, deviceImageId))
     }
 
     private fun setUpAdapter(){
