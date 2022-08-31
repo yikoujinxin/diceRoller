@@ -1,5 +1,6 @@
 package com.toa.diceroller
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -7,25 +8,32 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
-    lateinit var diceImage: ImageView;
-    lateinit var diceImage2: ImageView;
+    lateinit var diceImage: ImageView
+    lateinit var diceImage2: ImageView
+    var randomInt by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.d("MainActivity", "onCreate execute")
-        Log.d("data", "onCreate execute")
 
         val rollButton: Button = findViewById<Button>(R.id.roll_button);
         rollButton.setOnClickListener { rollDice() }
         val clearButton: Button = findViewById<Button>(R.id.clear_button);
-        clearButton.setOnClickListener { clearDice() }
+        clearButton.setOnClickListener { backDevice() }
 
         diceImage = findViewById<ImageView>(R.id.dice_image);
         diceImage2 = findViewById<ImageView>(R.id.dice_image2);
 
+        //----------device
+        val bundle = this.intent.extras
+        randomInt = bundle?.get("diceInt") as Int
+        Log.d("diceInt", bundle?.get("diceInt").toString())
+        diceImage.setImageResource(getRandomDiceImage())
+        diceImage2.setImageResource(getRandomDiceImage())
     }
 
     private fun rollDice(){
@@ -37,8 +45,13 @@ class MainActivity : AppCompatActivity() {
         diceImage.setImageResource(R.drawable.empty_dice)
         diceImage2.setImageResource(R.drawable.empty_dice)
     }
+
+    private fun backDevice(){
+        var intent: Intent = Intent(this, DevicesRecyclerActivity::class.java)
+        startActivity(intent)
+    }
+
     private fun getRandomDiceImage():Int{
-        val randomInt = (1..6).random()
         return when(randomInt){
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
