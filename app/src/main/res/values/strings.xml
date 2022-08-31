@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">DiceRoller</string>
+    <string name="app_name">FamilyRoom</string>
     <string name="roll_label">Roll</string>
     <string name="clear_label">clear</string>
     <string name="result_label">Hello World!</string>
     <string name="add_device">Add Device</string>
+    <string name="add_room">Add Room</string>
+    <string name="back_room">Back Room</string>
 </resources>

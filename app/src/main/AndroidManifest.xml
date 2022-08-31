@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DiceRoller">
         <activity
-            android:name=".DevicesRecyclerActivity"
-            android:exported="true" >
+            android:name=".RoomActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,16 +19,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DevicesListActivity"
+            android:name=".DevicesRecyclerActivity"
             android:exported="false">
-
         </activity>
+        <activity
+            android:name=".DevicesListActivity"
+            android:exported="false"></activity>
         <activity
             android:name=".AddImageActivity"
             android:exported="false" />
         <activity
             android:name=".ImageRoller"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
