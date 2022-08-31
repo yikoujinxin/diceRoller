@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun backDevice(){
-        var intent: Intent = Intent(this, DevicesRecyclerActivity::class.java)
+        var intent: Intent = Intent(this, RoomActivity::class.java)
         startActivity(intent)
     }
 

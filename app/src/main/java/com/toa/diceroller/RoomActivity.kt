@@ -31,12 +31,18 @@ class RoomActivity : AppCompatActivity() {
     }
 
     private fun addRoom(){
-        val addCount = roomList.last().roomId.inc()
-        val addName = "Room" + roomList.last().roomId.inc().toString()
-        val addImage = R.drawable.dice_3
-        val newRoom = Room(addCount,addName, addImage)
-        roomList.add(newRoom)
-        adapter.insertRoom(addCount, roomList)
+        if (roomList.size < 1){
+            val newRoom = Room(1,"Room1", R.drawable.dice_1)
+            roomList.add(newRoom)
+            adapter.insertRoom(1, roomList)
+        }else{
+            val addCount = roomList.last().roomId.inc()
+            val addName = "Room" + roomList.last().roomId.inc().toString()
+            val addImage = R.drawable.dice_3
+            val newRoom = Room(addCount,addName, addImage)
+            roomList.add(newRoom)
+            adapter.insertRoom(addCount, roomList)
+        }
 
         val jsonArray = JSONArray()
         val jsonObject = JSONObject()
@@ -45,8 +51,7 @@ class RoomActivity : AppCompatActivity() {
         }
 
         var editor = getSharedPreferences("data", Context.MODE_PRIVATE).edit()
-        editor.putString("room", jsonObject.put("list", jsonArray).toString())
-        Log.d("room", jsonObject.put("list", jsonArray).toString())
+        editor.putString("room", jsonArray.toString())
         editor.apply()
     }
 
