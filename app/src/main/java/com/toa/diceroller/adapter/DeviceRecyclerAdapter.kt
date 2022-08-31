@@ -1,5 +1,6 @@
 package com.toa.diceroller.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.toa.diceroller.R
 import com.toa.diceroller.entity.Device
 
-class DeviceRecyclerAdapter(val deviceList: List<Device>):
+class DeviceRecyclerAdapter(var deviceList: List<Device>):
     RecyclerView.Adapter<DeviceRecyclerAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -32,4 +33,20 @@ class DeviceRecyclerAdapter(val deviceList: List<Device>):
     }
 
     override fun getItemCount() = deviceList.size
+
+    fun insertDevice(newDeviceId: Int, newDeviceList: List<Device>){
+        deviceList = newDeviceList
+        notifyItemInserted(newDeviceId)
+    }
+
+    fun updateDevice(index: Int, newDeviceList: List<Device>){
+        deviceList = newDeviceList
+        notifyItemChanged(index)
+    }
+
+    fun removeDevice(position: Int, newDeviceList: List<Device>){
+        deviceList = newDeviceList
+        notifyItemRemoved(position)
+        notifyDataSetChanged()
+    }
 }

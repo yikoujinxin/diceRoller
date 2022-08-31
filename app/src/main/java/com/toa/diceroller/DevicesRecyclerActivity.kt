@@ -15,16 +15,15 @@ class DevicesRecyclerActivity : AppCompatActivity() {
 
     private val deviceList = ArrayList<Device>()
     lateinit var addDeviceButton: Button
+    lateinit var adapter: DeviceRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_devices_recycler)
 
         initDevices()
-        val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-        recyclerView.layoutManager = layoutManager
-        val adapter = DeviceRecyclerAdapter(deviceList)
-        recyclerView.adapter = adapter
+        setUpAdapter()
+
         addDeviceButton = findViewById(R.id.AddDevice)
         addDeviceButton.setOnClickListener{ addDevice() }
     }
@@ -34,12 +33,18 @@ class DevicesRecyclerActivity : AppCompatActivity() {
         val addName = "Device" + deviceList.last().deviceId.inc().toString()
         val addImage = R.drawable.dice_3
         deviceList.add(Device(addCount,addName, addImage))
-        val adapter = DeviceRecyclerAdapter(deviceList)
-        recyclerView.adapter = adapter
+        adapter.insertDevice(addCount, deviceList)
     }
 
     private fun initDevices(){
         deviceList.add(Device(1,"Device1", R.drawable.dice_1))
         deviceList.add(Device(2,"Device2", R.drawable.dice_2))
+    }
+
+    private fun setUpAdapter(){
+        val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        recyclerView.layoutManager = layoutManager
+        adapter = DeviceRecyclerAdapter(deviceList)
+        recyclerView.adapter = adapter
     }
 }
